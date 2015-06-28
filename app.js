@@ -7,36 +7,39 @@ $(document).ready(function() {
     var age = Number($("#age").val());
     var height = Number($("#height").val());
     var weight = Number($("#weight").val());
-    var exercise = Number($("#exercise").val());
+    var activity = Number($("#activity").val());
 
-    alert(gender);
-    alert(age);
-    alert(height);
-    alert(weight);
-    alert(exercise);
-    return false;
-
-    // Estimate Maximum Heart Rate (MHR)
-    var mhr = Number(208 - (0.7 * age));
+    // Calculate estimated maximum heart rate
+    // Source: Loc 3431 "ZONING: 'IN' AND 'OUT'"
+    var maxHeartRate = Number(208 - (0.7 * age));
 
     // Calculate minimum and maximum exercise heart rate
-    var min = Number((mhr / 100) * 55);
-    var max = Number((mhr / 100) * 75);
+    var minExerciseHeartRate = Number((maxHeartRate / 100) * 55);
+    var maxExerciseHeartRate = Number((maxHeartRate / 100) * 75);
 
-    // Estimate Basal Metabolic Rate (BMR)
-    var bmr = 1720.279;
+    // Use Harris-Benedict equation to calculate:
+    // 1. Estimated basal metabolic rate (BMR)
+    // 2. Recommended daily kilocalorie intake
+    // Source: https://en.wikipedia.org/wiki/Harris-Benedict_equation
+    var basalMetabolicRate;
     if (gender == "male") {
-      bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+      basalMetabolicRate = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
     } else {
-      bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+      basalMetabolicRate = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
     }
+    var dailyKilocalorieIntake = Number(basalMetabolicRate * activity);
 
-    var intake = Number(bmr * exercise);
+    // Exercise Zone Numbers
+    $("#maximum-heart-rate").text(Math.round(maxHeartRate));
+    $("#maximum-heart-rate-55").text(Math.round(minExerciseHeartRate));
+    $("#maximum-heart-rate-75").text(Math.round(maxExerciseHeartRate));
 
-    // Populate results
-    $("#min").text(Math.round(min));
-    $("#max").text(Math.round(max));
-    $("#intake").text(Math.round(intake));
+    // Caloric Expenditure
+    $("#basal-metabolic-rate").text(Math.round(basalMetabolicRate));
+    $("#activity-factor").text(activity);
+    $("#total-average-daily-calorie-expenditure").text(Math.round(dailyKilocalorieIntake));
+
+    // Macronutrient Calculations
 
     return false;
 
