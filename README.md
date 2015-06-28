@@ -2,7 +2,7 @@
 
 If you're a fan of *The Primal Blueprint* by Mark Sisson, the Primal Blueprint Calculator is a simple app that, given a few personal variables, will calculate your...
 
-* Basal metabolic rate
+* Basal Metabolic Rate (BMR)
 * Minimum heart rate
 * Maximum heart rate
 * Recommended daily kilocalorie intake

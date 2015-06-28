@@ -3,20 +3,27 @@ $(document).ready(function() {
   $("#form").submit(function(){
 
     // Collect form values
-    var gender = $("input:radio[name=gender]:checked").val();
-    var age = Number($("input[name=age]").val());
-    var height = Number($("input[name=height]").val());
-    var weight = Number($("input[name=weight]").val());
-    var exercise = Number($("input:radio[name=exercise]:checked").val());
+    var gender = $("#gender").val();
+    var age = Number($("#age").val());
+    var height = Number($("#height").val());
+    var weight = Number($("#weight").val());
+    var exercise = Number($("#exercise").val());
 
-    // Estimate maximum heart rate (MHR)
+    alert(gender);
+    alert(age);
+    alert(height);
+    alert(weight);
+    alert(exercise);
+    return false;
+
+    // Estimate Maximum Heart Rate (MHR)
     var mhr = Number(208 - (0.7 * age));
 
     // Calculate minimum and maximum exercise heart rate
     var min = Number((mhr / 100) * 55);
     var max = Number((mhr / 100) * 75);
 
-    // Estimate basal metabolic rate (BMR)
+    // Estimate Basal Metabolic Rate (BMR)
     var bmr = 1720.279;
     if (gender == "male") {
       bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
